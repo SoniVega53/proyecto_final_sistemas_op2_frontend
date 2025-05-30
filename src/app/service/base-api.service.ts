@@ -10,7 +10,7 @@ import { catchError, Observable } from 'rxjs';
 export class BaseApiService {
   public userKey = 'usuario';
 
-  public urlService: string = 'http://localhost:9090/api/';
+  public urlService: string = 'http://localhost:9090/api/proyecto/';
 
   constructor(
     public http: HttpClient,
@@ -19,22 +19,12 @@ export class BaseApiService {
   ) {}
 
   protected getService(url: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
     return this.http
       .get(this.urlService.concat(url))
       .pipe(catchError(async (e) => console.log(e)));
   }
 
   protected deleteService(url: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
     return this.http
       .delete(this.urlService.concat(url))
       .pipe(catchError(async (e) => console.log(e)));
@@ -46,21 +36,20 @@ export class BaseApiService {
       .pipe(catchError(async (e) => console.log(e)));
   }
 
+  post(url: string, body: any): Observable<any> {
+    return this.http
+      .post(this.urlService.concat(url), body)
+      .pipe(catchError(async (e) => console.log(e)));
+  }
+
   protected postServiceBody(
     url: string,
     params?: any,
     body?: any
   ): Observable<any> {
-    const token = localStorage.getItem('token');
-    const data = this.getData();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
+
     if (!params) params = {};
     if (!body) body = {};
-
-    body.username = data?.user;
-    body.password = data?.password;
 
     let httpParams = new HttpParams();
     if (params) {
@@ -71,7 +60,6 @@ export class BaseApiService {
 
     return this.http
       .post(this.urlService.concat(url), body, {
-        headers: headers,
         params: httpParams,
       })
       .pipe(
@@ -101,9 +89,5 @@ export class BaseApiService {
     return data.user == 'root';
   }
 
-  post(url: string, body: any): Observable<any> {
-    return this.http
-      .post(this.urlService.concat(url), body)
-      .pipe(catchError(async (e) => console.log(e)));
-  }
+
 }

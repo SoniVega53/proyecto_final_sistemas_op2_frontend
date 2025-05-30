@@ -18,10 +18,17 @@ export class RegisterComponent
 
   ngOnInit(): void {
     this.userRequest = new UserRequest();
+    this.userRequest.rol = '';
   }
 
   onChangeValues() {
     this.validButton = this.validActiveButton();
+  }
+
+  onChangeRol() {
+    if (this.userRequest.rol !== 'DOCTOR') {
+      this.userRequest.specialty = '';
+    }
   }
 
   validActiveButton(): boolean {
@@ -29,7 +36,10 @@ export class RegisterComponent
       this.userRequest.username?.trim() != '' &&
       this.userRequest.username != null &&
       this.userRequest.password?.trim() != '' &&
-      this.userRequest.password != null
+      this.userRequest.password != null &&
+      this.userRequest.rol?.trim() != '' &&
+      this.userRequest.rol != null
+
     );
   }
 
@@ -42,6 +52,7 @@ export class RegisterComponent
           icon: 'error',
           confirmButtonText: 'Aceptar',
         });
+        console.error(res);
       } else {
         this.login();
       }
@@ -64,7 +75,8 @@ export class RegisterComponent
           icon: 'success',
           confirmButtonText: 'Aceptar',
         });
-        localStorage.setItem('usuario', JSON.stringify(res?.entity));
+        const userEn = this.encripService.encrypt(res?.entity);
+        localStorage.setItem('usuario', userEn);
         this.router.navigate(['/home']);
       }
     });

@@ -29,6 +29,7 @@ export class LoginComponent extends ComponentMainComponent implements OnInit {
           icon: 'error',
           confirmButtonText: 'Aceptar',
         });
+        console.error(res);
       } else {
         const userEn = this.encripService.encrypt(res?.entity);
         localStorage.setItem('usuario', userEn);

@@ -32,7 +32,8 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
     this.serviceUser
       .updateUserPassword(
         this.userRequest?.password,
-        this.userRequest.passwordChange
+        this.userRequest.passwordChange,
+        this.username
       )
       .subscribe((res) => {
         if (res.code == '400') {
@@ -42,6 +43,7 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
+          console.error(res);
         } else {
           this.login();
         }
@@ -61,7 +63,8 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
           confirmButtonText: 'Aceptar',
         });
       } else {
-        localStorage.setItem('usuario', JSON.stringify(res?.entity));
+        const userEn = this.encripService.encrypt(res?.entity);
+        localStorage.setItem('usuario', userEn);
         Swal.fire({
           title: 'Success!',
           text: 'Se cambio la contraseña correctamente',
