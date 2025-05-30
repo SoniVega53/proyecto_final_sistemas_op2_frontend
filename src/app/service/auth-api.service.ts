@@ -15,7 +15,6 @@ export class AuthApiService extends BaseApiService {
   }
 
   register(body: UserEntity): Observable<any> {
-    console.log(body)
     return this.post(`auth/register`, body);
   }
 

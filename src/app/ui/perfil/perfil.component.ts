@@ -1,7 +1,8 @@
+import { Paciente } from './../../entity/UserEntityRequest';
 import { UserRequest } from './../../entity/UserRequest';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { UserEntityRequest } from '../../entity/UserEntityRequest';
+import { Doctor, UserEntityRequest } from '../../entity/UserEntityRequest';
 import { ComponentMainComponent } from '../main/component-main/component-main.component';
 
 @Component({
@@ -10,9 +11,10 @@ import { ComponentMainComponent } from '../main/component-main/component-main.co
   styleUrl: './perfil.component.css',
 })
 export class PerfilComponent extends ComponentMainComponent implements OnInit {
-  userRequest!: UserEntityRequest;
-  validButton: boolean = false;
+  userRequest: UserEntityRequest = {};
+  userRequestPassw: UserRequest = {};
 
+  validButton: boolean = false;
 
   // constructor(
   //   public override authService: AuthApiService,
@@ -24,15 +26,49 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDataUserPerfile();
-    this.userRequest = new UserEntityRequest();
+    this.userRequest = this.getDataUser();
+    if (this.userRequest.rol === 'DOCTOR') {
+      this.userRequest.name = this.getDataUser().doctor.name;
+      this.userRequest.lastname = this.getDataUser().doctor.lastname;
+      this.userRequest.specialty = this.getDataUser().doctor.specialty;
+      this.userRequest.id_doctor = this.getDataUser().doctor.id;
+    } else if (this.userRequest.rol === 'USER') {
+      this.userRequest.name = this.getDataUser().paciente.name;
+      this.userRequest.lastname = this.getDataUser().paciente.lastname;
+      this.userRequest.phone = this.getDataUser().paciente.phone;
+      this.userRequest.id_paciente = this.getDataUser().paciente.id;
+    }
+
   }
 
+  actualizarUsuario() {
+    this.serviceUser.updateUser(this.userRequest).subscribe((res) => {
+      if (res.code == '400') {
+        Swal.fire({
+          title: 'Error!',
+          text: res?.message,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
+        console.error(res);
+      } else {
+        Swal.fire({
+          title: 'Success!',
+          text: res?.message,
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        const userEn = this.encripService.encrypt(res?.entity);
+        localStorage.setItem('usuario', userEn);
+      }
+    });
+  }
 
   createUpdatePasswordChange() {
     this.serviceUser
       .updateUserPassword(
-        this.userRequest?.password,
-        this.userRequest.passwordChange,
+        this.userRequestPassw?.password,
+        this.userRequestPassw.passwordChange,
         this.username
       )
       .subscribe((res) => {
@@ -52,7 +88,7 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
 
   login() {
     const request = new UserRequest();
-    request.password = this.userRequest.passwordChange;
+    request.password = this.userRequestPassw.passwordChange;
     request.username = this.username;
     this.authService.login(request).subscribe((res) => {
       if (res.code == '400') {
@@ -81,7 +117,7 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
   }
 
   clearDataModel() {
-    this.userRequest = new UserEntityRequest();
+    this.userRequestPassw = new UserEntityRequest();
   }
 
   onChangeValuesPassword() {
@@ -94,10 +130,10 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
 
   validActiveButton(): boolean {
     return (
-      this.userRequest.password?.trim() != '' &&
-      this.userRequest.password != null &&
-      this.userRequest.passwordChange?.trim() != '' &&
-      this.userRequest.passwordChange != null
+      this.userRequestPassw.password?.trim() != '' &&
+      this.userRequestPassw.password != null &&
+      this.userRequestPassw.passwordChange?.trim() != '' &&
+      this.userRequestPassw.passwordChange != null
     );
   }
 
@@ -120,6 +156,4 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
   onChange(event: Event) {
     // this.verPermisos();
   }
-
-
 }

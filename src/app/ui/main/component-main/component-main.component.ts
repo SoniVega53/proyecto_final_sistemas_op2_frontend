@@ -13,6 +13,7 @@ import { EncryptionService } from '../../../entity/EncryptionService';
 })
 export class ComponentMainComponent {
   username: String = '';
+  userData: String = '';
   rootAccess: boolean = false;
   editorInstance: any;
 
@@ -31,6 +32,11 @@ export class ComponentMainComponent {
     if (data) {
       this.username = data?.username ?? '';
     }
+  }
+
+  getDataUser() {
+    const data = this.serviceUser.getData();
+    return data;
   }
 
   obtenerTextoSeleccionado(codeEditor: CodemirrorComponent): string {
