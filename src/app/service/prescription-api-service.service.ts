@@ -7,18 +7,26 @@ import { Observable } from 'rxjs';
 })
 export class PrescriptionApiServiceService extends BaseApiService {
   getAllPrescriptions(): Observable<any> {
-    return this.getService('admin/prescription/see');
+    return this.getService('prescription/see');
+  }
+
+  getAllPrescriptionsCita(appointmentId:any): Observable<any> {
+    return this.getService(`prescriptions/see/${appointmentId}`);
   }
 
   createPrescription(body: any): Observable<any> {
-    return this.post('admin/prescription/create', body);
+    return this.post('prescription', body);
   }
 
   updatePrescription(id: number, body: any): Observable<any> {
-    return this.putServiceBody(`admin/prescription/update/${id}`, body);
+    return this.post(`prescription/update/${id}`, body);
   }
 
   deletePrescription(id: number): Observable<any> {
-    return this.deleteService(`admin/prescription/delete/${id}`);
+    return this.deleteService(`prescription/eliminar/${id}`);
+  }
+
+  getPrescriptionsByDoctor(doctorId: number): Observable<[]> {
+    return this.getService(`doctor/${doctorId}/prescriptions`);
   }
 }
