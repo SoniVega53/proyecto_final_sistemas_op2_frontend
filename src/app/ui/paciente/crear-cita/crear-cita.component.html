@@ -1,0 +1,83 @@
+<div class="container">
+  <br />
+  <div class="ajustCenter" *ngIf="isCreate">
+    <div  style="width: 60%">
+      <div class="mb-2 text-start">
+        <label>Fecha De cita:</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="2025-05-28"
+          [(ngModel)]="citaRequest"
+          name="date"
+        />
+      </div>
+
+      <div class="mb-2 text-start">
+        <div>
+          <select
+            *ngIf="listadoDoctores.length > 0"
+            [(ngModel)]="selectDoctor"
+            class="form-select"
+            aria-label="Selecciona un doctor"
+          >
+            <option value="">-- Selecciona un doctor --</option>
+            <option *ngFor="let item of listadoDoctores" [value]="item.id">
+              {{ item.name }} {{ item.lastname }} - {{ item.specialty }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 col-6 mx-auto mb-4">
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          (click)="generarCita()"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-center">CITAS AGENDADAS</h2>
+  <br />
+  <table class="table" *ngIf="listadoCitas.length > 0">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">#</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Doctor</th>
+        <th scope="col" style="text-align: center">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cita of listadoCitas; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ cita.date }}</td>
+        <td>{{ cita.doctor?.name }} {{ cita.doctor?.lastname }}</td>
+        <td class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            style="margin-right: 4px; width: 90px"
+            (click)="eliminarCita(cita.id)"
+          >
+            Eliminar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            style="width: 90px"
+            (click)="verReceta(cita)"
+          >
+            Ver Receta
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-is-empty *ngIf="listadoCitas.length <= 0" descripcion="No tienes Citas Agendadas"></app-is-empty>
+</div>

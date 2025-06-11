@@ -1,34 +1,35 @@
-.container-login{
-  width:55rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  box-shadow: -34px 23px 23px -9px rgba(0,0,0,0.44);
-  -webkit-box-shadow: -34px 23px 23px -9px rgba(0,0,0,0.44);
-  -moz-box-shadow: -34px 23px 23px -9px rgba(0,0,0,0.44);
-
+.container-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem 0;
 }
 
-.svg-images svg{
+.content-flex {
+  width: 50%;
+}
+
+.svg-images svg {
   margin: 1rem;
 }
 
-.svg-images{
+.svg-images {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.card{
+.card {
   background: #bdc3c7;
   padding: 2rem;
   border-radius: 0rem 0.375rem 0.375rem 0rem;
   border: 0 !important;
+  box-shadow: -34px 23px 23px -9px rgba(0, 0, 0, 0.44);
+  -webkit-box-shadow: -34px 23px 23px -9px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: -34px 23px 23px -9px rgba(0, 0, 0, 0.44);
 }
 
-
-.card-title{
+.card-title {
   font-family: "Nerko One", cursive;
   font-weight: 400;
   font-style: normal;
@@ -37,16 +38,16 @@
   margin-bottom: 1rem;
 }
 
-.card-body{
+.card-body {
   padding: 0;
 }
 
-.col{
+.col {
   padding: 0;
 }
 
 .background-div {
-  background-image: url('../../../assets/images/fondo_login.jfif');
+  background-image: url("../../../assets/images/fondo_login.jfif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -54,33 +55,34 @@
   border-radius: 0.375rem 0rem 0rem 0.375rem;
 }
 
-.btn-link{
+.btn-link {
   color: #2b2b2c;
 }
 
 /* Tamaño de texto para pantallas medianas (tabletas) */
 @media (max-width: 1024px) {
-  .container-login{
+  .container-login {
+    width: 100%;
+  }
+  .content-flex {
     width: 70%;
   }
 }
 
 /* Tamaño de texto para pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
-  .container-login{
-    width: 60%;
+  .container-login {
+    width: 100%;
   }
 
-  .col-info{
+  .col-info {
     display: none;
   }
 }
 
 /* Tamaño de texto para pantallas extra pequeñas (móviles muy pequeños) */
 @media (max-width: 480px) {
-  .container-login{
-    width: 80%;
+  .container-login {
+    width: 100%;
   }
-
-
 }

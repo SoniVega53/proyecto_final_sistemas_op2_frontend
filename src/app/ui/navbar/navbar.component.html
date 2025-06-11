@@ -19,7 +19,6 @@
     </a>
 
     <ul class="nav justify-content-end h7">
-
       <li class="nav-item">
         <div class="dropdown dropstart">
           <a class="nav-link" [routerLink]="['/home']">
@@ -40,9 +39,9 @@
         </div>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isValidUserDoc()">
         <div class="dropdown dropstart">
-          <a class="nav-link" [routerLink]="['/query-ejecutable']">
+          <a class="nav-link" [routerLink]="['/doctor/citas']">
             <div class="ajustCenter">
               <svg
                 class="bi bi-house svg-nav-icon"
@@ -51,16 +50,36 @@
               >
                 <path
                   fill="#ffffff"
-                  d="M9.4 86.6C-3.1 74.1-3.1 53.9 9.4 41.4s32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 9.4 86.6zM256 416l288 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-288 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"
+                  d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"
                 />
               </svg>
             </div>
-            Consola
+            Mis Citas
           </a>
         </div>
       </li>
 
-      <li class="nav-item" *ngIf="isValidUserList()">
+      <li class="nav-item" *ngIf="isValidUserPaci()">
+        <div class="dropdown dropstart">
+          <a class="nav-link" [routerLink]="['/paciente/citas']">
+            <div class="ajustCenter">
+              <svg
+                class="bi bi-house svg-nav-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 576 512"
+              >
+                <path
+                  fill="#ffffff"
+                  d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"
+                />
+              </svg>
+            </div>
+            Mis Citas
+          </a>
+        </div>
+      </li>
+
+      <li class="nav-item" *ngIf="isValidUserAdmin()">
         <div class="dropdown dropstart">
           <a class="nav-link" [routerLink]="['/users']">
             <div class="ajustCenter">
@@ -157,7 +176,6 @@
           </div>
         </li>
       </div>
-
     </ul>
   </div>
 </nav>

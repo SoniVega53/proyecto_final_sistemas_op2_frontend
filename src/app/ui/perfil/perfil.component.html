@@ -16,17 +16,74 @@
         {{ username }}
       </h5>
       <div class="container text-center inputs-container">
+        <div>
+          <div class="">
+            <h4 class="mb-3">Datos Generales</h4>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label>Nombre de Usuario:</label>
+                <p>{{ userRequest?.username }}</p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label>Email:</label>
+                <p>{{ userRequest?.email }}</p>
+              </div>
+              <div class="col-md-6 mb-3" *ngIf="userRequest?.rol">
+                <label>Rol:</label>
+                <p>{{ userRequest?.rol }}</p>
+              </div>
+            </div>
 
-        <!-- <select [ngClass]="selectDataBase === '-1' ? 'placeholder-select' : 'text-select'" class="form-select" aria-label="Default select example" [(ngModel)]="selectDataBase" (change)="onChange($event)">
-          <option selected value="-1" class="placeholder-select" >Seleccione una base de datos</option>
-          <div *ngFor="let item of listDataBase; let i = index">
-            <option [value]="item.Database" style="color: black;">{{i + 1}}) {{item.Database}}</option>
+            <div *ngIf="userRequest?.rol === 'DOCTOR'" class="mt-4">
+              <h4 class="mb-3">Información de Doctor</h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Nombre:</label>
+                  <p>{{ userRequest?.name }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Apellido:</label>
+                  <p>{{ userRequest?.lastname }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Especialidad:</label>
+                  <p>{{ userRequest?.specialty }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="userRequest?.rol === 'USER'" class="mt-4">
+              <h4 class="mb-3">Información de Paciente</h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Nombre:</label>
+                  <p>{{ userRequest?.name }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Apellido:</label>
+                  <p>{{ userRequest?.lastname }}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Teléfono:</label>
+                  <p>{{ userRequest?.phone }}</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </select>
-        <br> -->
+        </div>
 
+        <button
+          *ngIf="userRequest.rol !== 'ADMIN'"
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#updateUser"
+        >
+          Editar
+        </button>
 
         <div>
+          <br />
           <a
             class="card-link"
             data-bs-toggle="modal"
@@ -35,7 +92,6 @@
             >Cambiar contraseña</a
           >
         </div>
-
       </div>
     </div>
   </div>
@@ -60,7 +116,7 @@
             class="form-control"
             placeholder="Contraseña"
             aria-describedby="addon-wrapping"
-            [(ngModel)]="userRequest.password"
+            [(ngModel)]="userRequestPassw.password"
             (input)="onChangeValuesPassword()"
           />
         </div>
@@ -72,7 +128,7 @@
             class="form-control"
             placeholder="Nueva Contraseña"
             aria-describedby="addon-wrapping"
-            [(ngModel)]="userRequest.passwordChange"
+            [(ngModel)]="userRequestPassw.passwordChange"
             (input)="onChangeValuesPassword()"
           />
         </div>
@@ -89,6 +145,88 @@
         >
           Actualizar
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="updateUser">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Actualizar: {{ username }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="col">
+
+          <div class="mb-2 text-start">
+            <label>Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ej: Juan"
+              [(ngModel)]="userRequest.name"
+              name="name"
+            />
+          </div>
+
+          <div class="mb-2 text-start">
+            <label>Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ej: Pérez"
+              [(ngModel)]="userRequest.lastname"
+              name="lastname"
+            />
+          </div>
+
+          <div class="mb-2 text-start">
+            <label>Correo</label>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Ej: juan@email.com"
+              [(ngModel)]="userRequest.email"
+              name="email"
+            />
+          </div>
+
+          <div class="mb-3 text-start" *ngIf="userRequest.rol === 'DOCTOR'">
+            <label>Especialidad</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ej: Pediatría"
+              [(ngModel)]="userRequest.specialty"
+              name="specialty"
+            />
+          </div>
+
+          <div class="mb-2 text-start" *ngIf="userRequest.rol === 'USER'">
+            <label>Teléfono</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ej: 5551234567"
+              [(ngModel)]="userRequest.phone"
+              name="phone"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="actualizarUsuario()">Actualizar</button>
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+import { AppointmentApiServiceService } from './../../../service/appointment-api-service.service';
 import { Component, ElementRef } from '@angular/core';
 import { AuthApiService } from '../../../service/auth-api.service';
 import { UserApiService } from '../../../service/user-api.service';
@@ -5,6 +6,8 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { EncryptionService } from '../../../entity/EncryptionService';
+import { PrescriptionApiServiceService } from '../../../service/prescription-api-service.service';
+import { DoctorApiServiceService } from '../../../service/doctor-api-service.service';
 
 @Component({
   selector: 'app-component-main',
@@ -13,6 +16,11 @@ import { EncryptionService } from '../../../entity/EncryptionService';
 })
 export class ComponentMainComponent {
   username: String = '';
+  user_id: String = '';
+  paciente_id: String = '';
+  doctor_id: String = '';
+  rol_user: String = '';
+  userData: String = '';
   rootAccess: boolean = false;
   editorInstance: any;
 
@@ -21,7 +29,10 @@ export class ComponentMainComponent {
     public router: Router,
     public route: ActivatedRoute,
     public serviceUser: UserApiService,
-    public encripService: EncryptionService
+    public encripService: EncryptionService,
+    public appoService: AppointmentApiServiceService,
+    public prescService: PrescriptionApiServiceService,
+    public docService: DoctorApiServiceService,
   ) {
     this.getDataUserPerfile();
     this.rootAccess = this.serviceUser.getRootAccess();
@@ -30,7 +41,16 @@ export class ComponentMainComponent {
     const data = this.serviceUser.getData();
     if (data) {
       this.username = data?.username ?? '';
+      this.user_id = data?.id ?? '';
+      this.paciente_id = data?.paciente?.id ?? '';
+      this.doctor_id = data?.doctor?.id ?? '';
+      this.rol_user = data?.rol ?? '';
     }
+  }
+
+  getDataUser() {
+    const data = this.serviceUser.getData();
+    return data;
   }
 
   obtenerTextoSeleccionado(codeEditor: CodemirrorComponent): string {

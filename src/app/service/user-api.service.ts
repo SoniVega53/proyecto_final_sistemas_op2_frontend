@@ -23,13 +23,13 @@ export class UserApiService extends AuthApiService{
     return this.postServiceBody(`eliminarUsurio`,param);
   }
 
-  updateUserPassword(validPass:any, newpas:any):Observable<any>{
-    const param = { validPassword:validPass, newPassword:newpas}
-    return this.postServiceBody(`cambiarPassword`,param);
+  updateUserPassword(validPass:any, newpas:any,username:any):Observable<any>{
+    const body = { password:validPass, passwordChange:newpas,username}
+    return this.postServiceBody(`usuario/cambiarPassword`,null,body);
   }
 
-  updateUser(body:UserEntityRequest,idUser:Number):Observable<any>{
-    return this.postServiceBody(`user/usuario/update/${idUser}`,body);
+  updateUser(body:UserEntityRequest):Observable<any>{
+    return this.postServiceBody(`usuario/update`,null,body);
   }
 
 

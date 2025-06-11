@@ -1,4 +1,11 @@
-export class UserRequest{
-  username?:String;
-  password?:String;
+export class UserRequest {
+  username?: String;
+  name?: String;
+  lastname?: String;
+  email?: String;
+  password?: String;
+  passwordChange?: String;
+  rol?: String;
+  specialty?: String;
+  phone?: String;
 }

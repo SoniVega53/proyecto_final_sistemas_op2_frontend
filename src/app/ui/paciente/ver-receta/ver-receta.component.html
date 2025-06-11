@@ -1,0 +1,129 @@
+<div class="container ajustCenter">
+  <div style="width: 60%">
+    <div *ngIf="isDoctor" class="ajustRight">
+      <div>
+        <br />
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#crearReceta"
+        >
+          Agregar Receta
+        </button>
+        <br />
+      </div>
+    </div>
+
+    <br />
+    <h2>Datos Paciente</h2>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="span-title">NOMBRE:</span> {{ dataCita.patient.name }}
+        {{ dataCita.patient.lastname }}
+      </li>
+      <li class="list-group-item">
+        <span class="span-title">TELEFONO:</span> {{ dataCita.patient.phone }}
+      </li>
+    </ul>
+    <br />
+    <h2>Datos Doctor</h2>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="span-title">NOMBRE:</span> {{ dataCita.doctor.name }}
+        {{ dataCita.doctor.lastname }}
+      </li>
+      <li class="list-group-item">
+        <span class="span-title">ESPECIALIDAD:</span>
+        {{ dataCita.doctor.specialty }}
+      </li>
+    </ul>
+    <br />
+
+    <h2 *ngIf="listadoRecetas.length > 0">Listado Recetas</h2>
+    <ul class="list-group" *ngFor="let item of listadoRecetas">
+      <li class="list-group-item">
+        <span class="span-title">MEDICACION:</span> {{ item.medication }}
+      </li>
+      <li class="list-group-item">
+        <span class="span-title">DOSIS:</span> {{ item.dosage }}
+      </li>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2" *ngIf="isDoctor">
+
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          style="margin-right: 4px; width: 90px"
+          (click)="eliminarReceta(item.id)"
+        >
+          Eliminar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          style="width: 90px"
+          data-bs-toggle="modal"
+          data-bs-target="#crearReceta"
+          (click)="editarReceta(item)"
+        >
+          Editar
+        </button>
+      </div>
+      <br />
+    </ul>
+
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="crearReceta">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Receta</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <label>Medicacion</label>
+        <div class="input-group flex-nowrap input">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Medicacion"
+            aria-describedby="addon-wrapping"
+            [(ngModel)]="recetaRequest.medication"
+          />
+        </div>
+        <br />
+        <label>Dosis </label>
+        <div class="input-group flex-nowrap input">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Dosis"
+            aria-describedby="addon-wrapping"
+            [(ngModel)]="recetaRequest.dosage"
+          />
+        </div>
+        <br />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="createReceta()"
+        >
+         {{textButonAgregar}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

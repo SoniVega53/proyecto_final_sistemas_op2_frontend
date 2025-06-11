@@ -10,8 +10,6 @@ import { UserEntity } from '../entity/UserEntity';
 })
 export class AuthApiService extends BaseApiService {
 
-
-
   login(body: UserRequest): Observable<any> {
     return this.post(`auth/login`, body);
   }

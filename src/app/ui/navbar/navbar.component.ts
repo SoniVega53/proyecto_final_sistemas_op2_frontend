@@ -9,15 +9,24 @@ import { ComponentMainComponent } from '../main/component-main/component-main.co
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent extends ComponentMainComponent {
-
-  arrayUser = ['root','admin_cluster']
+  arrayUser = ['root', 'admin_cluster'];
 
   logout() {
     this.authService.logout();
   }
 
-  isValidUserList():boolean{
-    const existe = this.arrayUser.some(res => this.username === res);
-    return existe;
+  isValidUserAdmin(): boolean {
+    let rol: String = this.getDataUser().rol?.toString();
+    return rol.toUpperCase() === 'ADMIN';
+  }
+
+  isValidUserDoc(): boolean {
+    let rol: String = this.getDataUser().rol?.toString();
+    return rol.toUpperCase() === 'DOCTOR';
+  }
+
+  isValidUserPaci(): boolean {
+    let rol: String = this.getDataUser().rol?.toString();
+    return rol.toUpperCase() === 'USER';
   }
 }

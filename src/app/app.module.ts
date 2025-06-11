@@ -13,6 +13,11 @@ import { PerfilComponent } from './ui/perfil/perfil.component';
 import { IsEmptyComponent } from './ui/is-empty/is-empty.component';
 import { ComponentMainComponent } from './ui/main/component-main/component-main.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { DoctorCitasComponentComponent } from './ui/doctor-citas-component/doctor-citas-component.component';
+import { DoctorPacientesComponentComponent } from './ui/doctor-pacientes-component/doctor-pacientes-component.component';
+import { ErrorPageComponent } from './ui/error-page/error-page.component';
+import { CrearCitaComponent } from './ui/paciente/crear-cita/crear-cita.component';
+import { VerRecetaComponent } from './ui/paciente/ver-receta/ver-receta.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
     RegisterComponent,
     PerfilComponent,
     IsEmptyComponent,
-    ComponentMainComponent
+    ComponentMainComponent,
+    DoctorCitasComponentComponent,
+    DoctorPacientesComponentComponent,
+    ErrorPageComponent,
+    CrearCitaComponent,
+    VerRecetaComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,CodemirrorModule],
   providers: [

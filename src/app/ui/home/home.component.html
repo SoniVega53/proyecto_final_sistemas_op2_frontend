@@ -10,10 +10,15 @@
     </div>
     <div class="title-home">
       <h3>Universidad Mariano Galvez</h3>
-      <h1>Base de Datos II UMG</h1>
+      <h1>Sitema Operativo II UMG</h1>
       <h3>Bienvenido " {{ username }} "</h3>
     </div>
   </div>
 </header>
+
+<body>
+  <app-crear-cita *ngIf="rol_user === 'USER'" [isCreate]="false"></app-crear-cita>
+  <app-doctor-citas-component *ngIf="rol_user === 'DOCTOR'"></app-doctor-citas-component>
+</body>
 
 

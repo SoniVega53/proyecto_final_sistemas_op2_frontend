@@ -8,8 +8,6 @@ import Swal from 'sweetalert2';
   styleUrl: './home.component.css',
 })
 export class HomeComponent extends ComponentMainComponent implements OnInit {
-  basedatosname = '';
-
 
   ngOnInit(): void {
   }
