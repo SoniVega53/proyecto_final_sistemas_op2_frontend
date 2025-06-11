@@ -1,22 +1,17 @@
 FROM node:20.13.1 as builder
 
-EXPOSE 80
-
-RUN mkdir /app
 WORKDIR /app
-
-RUN npm install -g @angular/cli@13
 
 COPY package.json package-lock.json ./
 RUN npm ci
 
-RUN npm install
-
 COPY . .
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+RUN npm run build -- --configuration production
 
-FROM builder as dev-envs
+FROM nginx:alpine
 
-COPY --from=gloursdocker/docker / /
+COPY --from=builder /app/dist/grupo_umg2025_frontend /usr/share/nginx/html
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
