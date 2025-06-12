@@ -1,17 +1,13 @@
-FROM node:20.13.1 as builder
+FROM node:18-alpine AS build
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package*.json ./
+RUN npm install
 
 COPY . .
-RUN npm run build -- --configuration production
+RUN npm run build
 
 FROM nginx:alpine
 
-COPY --from=builder /app/dist/grupo_umg2025_frontend /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=build /usr/src/app/dist/grupo_umg2025_frontend/browser /usr/share/nginx/html
