@@ -21,11 +21,6 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "allowedCommonJsDependencies": [
-            "sweetalert2",
-            "codemirror",
-            "crypto-js"
-          ],
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref": "/",
