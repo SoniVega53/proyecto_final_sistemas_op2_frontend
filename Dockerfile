@@ -1,7 +1,7 @@
 # Etapa 1: Construcción
 FROM node:18-alpine AS build
 
-EXPOSE 8080
+EXPOSE 4200
 
 WORKDIR /usr/src/app
 
