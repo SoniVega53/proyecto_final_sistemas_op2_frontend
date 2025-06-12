@@ -1,18 +1,13 @@
-# Etapa 1: Construcción
-FROM node:18-alpine AS build
+FROM node:18-alpine as build
 
-EXPOSE 80
-
-WORKDIR /usr/src/app
-
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
-
 COPY . .
 RUN npm run build
 
 FROM nginx:alpine
+COPY --from=build /app/dist/grupo_umg2025_frontend/browser /usr/share/nginx/html
 
-COPY --from=build /usr/src/app/dist/grupo_umg2025_frontend/browser /usr/share/nginx/html
-
-##COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
