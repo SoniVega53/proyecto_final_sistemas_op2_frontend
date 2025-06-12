@@ -32,7 +32,7 @@ export class ComponentMainComponent {
     public encripService: EncryptionService,
     public appoService: AppointmentApiServiceService,
     public prescService: PrescriptionApiServiceService,
-    public docService: DoctorApiServiceService,
+    public docService: DoctorApiServiceService
   ) {
     this.getDataUserPerfile();
     this.rootAccess = this.serviceUser.getRootAccess();
@@ -60,5 +60,20 @@ export class ComponentMainComponent {
       return texto && texto.length > 0 ? texto : '';
     }
     return '';
+  }
+
+  isValidUserAdmin(): boolean {
+    let rol: String = this.getDataUser().rol?.toString();
+    return rol.toUpperCase() === 'ADMIN';
+  }
+
+  isValidUserDoc(): boolean {
+    let rol: String = this.getDataUser().rol?.toString();
+    return rol.toUpperCase() === 'DOCTOR';
+  }
+
+  isValidUserPaci(): boolean {
+    let rol: String = this.getDataUser().rol?.toString();
+    return rol.toUpperCase() === 'USER';
   }
 }

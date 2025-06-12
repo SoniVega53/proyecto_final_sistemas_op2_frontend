@@ -10,7 +10,7 @@ export class UserApiService extends AuthApiService{
 
 
   getAllUsers(): Observable<any>{
-    return this.postServiceBody("verUsuarios");
+    return this.getService("admin/usuario/see_all");
   }
   getInfoUser(): Observable<any>{
     const user = this.getUserName()
