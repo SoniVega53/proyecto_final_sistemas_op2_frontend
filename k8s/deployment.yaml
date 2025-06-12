@@ -17,4 +17,4 @@ spec:
         image: gcr.io/cluster-proyecto-op2/angular-app
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 4200
+        - containerPort: 80
