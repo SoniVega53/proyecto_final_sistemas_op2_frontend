@@ -14,19 +14,4 @@ export class NavbarComponent extends ComponentMainComponent {
   logout() {
     this.authService.logout();
   }
-
-  isValidUserAdmin(): boolean {
-    let rol: String = this.getDataUser().rol?.toString();
-    return rol.toUpperCase() === 'ADMIN';
-  }
-
-  isValidUserDoc(): boolean {
-    let rol: String = this.getDataUser().rol?.toString();
-    return rol.toUpperCase() === 'DOCTOR';
-  }
-
-  isValidUserPaci(): boolean {
-    let rol: String = this.getDataUser().rol?.toString();
-    return rol.toUpperCase() === 'USER';
-  }
 }

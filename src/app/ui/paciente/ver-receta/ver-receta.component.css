@@ -3,3 +3,9 @@
   font-weight: 900;
   font-size: 14px;
 }
+
+.recetas{
+  border: 2px  rgb(39, 37, 37) solid ;
+  border-radius: 8px;
+  padding: 8px;
+}

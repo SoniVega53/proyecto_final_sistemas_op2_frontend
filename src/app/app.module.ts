@@ -18,6 +18,7 @@ import { DoctorPacientesComponentComponent } from './ui/doctor-pacientes-compone
 import { ErrorPageComponent } from './ui/error-page/error-page.component';
 import { CrearCitaComponent } from './ui/paciente/crear-cita/crear-cita.component';
 import { VerRecetaComponent } from './ui/paciente/ver-receta/ver-receta.component';
+import { ListadoUsuariosComponent } from './ui/listado-usuarios/listado-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { VerRecetaComponent } from './ui/paciente/ver-receta/ver-receta.componen
     DoctorPacientesComponentComponent,
     ErrorPageComponent,
     CrearCitaComponent,
-    VerRecetaComponent
+    VerRecetaComponent,
+    ListadoUsuariosComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,CodemirrorModule],
   providers: [

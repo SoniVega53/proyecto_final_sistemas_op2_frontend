@@ -16,7 +16,7 @@
     </div>
 
     <br />
-    <h2>Datos Paciente</h2>
+    <h3>Datos Paciente</h3>
     <ul class="list-group">
       <li class="list-group-item">
         <span class="span-title">NOMBRE:</span> {{ dataCita.patient.name }}
@@ -27,7 +27,7 @@
       </li>
     </ul>
     <br />
-    <h2>Datos Doctor</h2>
+    <h3>Datos Doctor</h3>
     <ul class="list-group">
       <li class="list-group-item">
         <span class="span-title">NOMBRE:</span> {{ dataCita.doctor.name }}
@@ -40,38 +40,41 @@
     </ul>
     <br />
 
-    <h2 *ngIf="listadoRecetas.length > 0">Listado Recetas</h2>
-    <ul class="list-group" *ngFor="let item of listadoRecetas">
-      <li class="list-group-item">
-        <span class="span-title">MEDICACION:</span> {{ item.medication }}
-      </li>
-      <li class="list-group-item">
-        <span class="span-title">DOSIS:</span> {{ item.dosage }}
-      </li>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2" *ngIf="isDoctor">
-
-        <button
-          type="button"
-          class="btn btn-danger btn-sm"
-          style="margin-right: 4px; width: 90px"
-          (click)="eliminarReceta(item.id)"
+    <div class="recetas">
+      <h2 *ngIf="listadoRecetas.length > 0">Listado Recetas</h2>
+      <ul class="list-group" *ngFor="let item of listadoRecetas">
+        <li class="list-group-item">
+          <span class="span-title">MEDICACION:</span> {{ item.medication }}
+        </li>
+        <li class="list-group-item">
+          <span class="span-title">DOSIS:</span> {{ item.dosage }}
+        </li>
+        <div
+          class="d-grid gap-2 d-md-flex justify-content-md-end mt-2"
+          *ngIf="isDoctor"
         >
-          Eliminar
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary btn-sm"
-          style="width: 90px"
-          data-bs-toggle="modal"
-          data-bs-target="#crearReceta"
-          (click)="editarReceta(item)"
-        >
-          Editar
-        </button>
-      </div>
-      <br />
-    </ul>
-
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            style="margin-right: 4px; width: 90px"
+            (click)="eliminarReceta(item.id)"
+          >
+            Eliminar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            style="width: 90px"
+            data-bs-toggle="modal"
+            data-bs-target="#crearReceta"
+            (click)="editarReceta(item)"
+          >
+            Editar
+          </button>
+        </div>
+        <br />
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -121,7 +124,7 @@
           data-bs-dismiss="modal"
           (click)="createReceta()"
         >
-         {{textButonAgregar}}
+          {{ textButonAgregar }}
         </button>
       </div>
     </div>

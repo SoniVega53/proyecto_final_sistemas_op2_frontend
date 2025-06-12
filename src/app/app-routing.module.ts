@@ -12,6 +12,7 @@ import { AuthGuardRolService } from './auth/auth-guard-rol.service';
 import { ErrorPageComponent } from './ui/error-page/error-page.component';
 import { CrearCitaComponent } from './ui/paciente/crear-cita/crear-cita.component';
 import { VerRecetaComponent } from './ui/paciente/ver-receta/ver-receta.component';
+import { ListadoUsuariosComponent } from './ui/listado-usuarios/listado-usuarios.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -46,6 +47,15 @@ const routes: Routes = [
       { path: 'recetas', component: VerRecetaComponent },
     ],
   },
+  {
+    path: 'admin',
+    canActivate: [AuthGuardRolService],
+    data: { roles: ['ADMIN'] },
+    children: [
+      { path: 'listado-usaurios', component: ListadoUsuariosComponent },
+    ],
+  },
+
 
   { path: '**', redirectTo: '/error' },
 ];
