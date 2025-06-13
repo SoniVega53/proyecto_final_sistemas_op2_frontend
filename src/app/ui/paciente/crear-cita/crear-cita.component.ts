@@ -113,24 +113,26 @@ export class CrearCitaComponent
   }
 
   eliminarCita(id: any) {
-    this.appoService.deleteAppointment(id).subscribe((res) => {
-      if (res.code == '400') {
-        Swal.fire({
-          title: 'Error!',
-          text: res?.message,
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-        console.error(res);
-      } else {
-        Swal.fire({
-          title: 'Success!',
-          text: res?.message,
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
-        this.obtenerCitas();
-      }
+    this.messageEliminar(() => {
+      this.appoService.deleteAppointment(id).subscribe((res) => {
+        if (res.code == '400') {
+          Swal.fire({
+            title: 'Error!',
+            text: res?.message,
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+          console.error(res);
+        } else {
+          Swal.fire({
+            title: 'Success!',
+            text: res?.message,
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+          this.obtenerCitas();
+        }
+      });
     });
   }
 
@@ -156,7 +158,7 @@ export class CrearCitaComponent
 
   onChangeValue(val: Opcion) {
     this.selectorEsp = val.texto;
-    this.filtraDo()
+    this.filtraDo();
   }
 
   onInputChange(event: Event) {

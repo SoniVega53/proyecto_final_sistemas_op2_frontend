@@ -49,7 +49,7 @@ export class CrearEspecialidadPageComponent
       } else {
         this.listadoEspecialidades = res;
         this.listadoEspecialidades.map((val) => {
-          const data = new TablaEntity(val.id,'0', false, [
+          const data = new TablaEntity(val.id, '0', false, [
             val.nombre,
             val.descripcion,
           ]);
@@ -86,24 +86,26 @@ export class CrearEspecialidadPageComponent
   }
 
   onEliminar(item: any) {
-    this.docService.eliminarEspecialidad(item.id).subscribe((res) => {
-      if (res.code == '400') {
-        Swal.fire({
-          title: 'Error!',
-          text: res?.message,
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-        console.error(res);
-      } else {
-        Swal.fire({
-          title: 'Success!',
-          text: res?.message,
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
-        this.obtenerEspecialidades();
-      }
+    this.messageEliminar(() => {
+      this.docService.eliminarEspecialidad(item.id).subscribe((res) => {
+        if (res.code == '400') {
+          Swal.fire({
+            title: 'Error!',
+            text: res?.message,
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+          console.error(res);
+        } else {
+          Swal.fire({
+            title: 'Success!',
+            text: res?.message,
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+          this.obtenerEspecialidades();
+        }
+      });
     });
   }
 
