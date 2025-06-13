@@ -1,3 +1,4 @@
+import { Opcion } from './../../entity/Opcion';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ComponentMainComponent } from '../main/component-main/component-main.component';
@@ -14,11 +15,15 @@ export class RegisterComponent
 {
   userRequest!: UserRequest;
   validButton: boolean = false;
+  listadoEspecialidades: any[] = [];
+  listadOp: Opcion[] = [];
+  selectOp = '';
   public myProperty: boolean = false;
 
   ngOnInit(): void {
     this.userRequest = new UserRequest();
     this.userRequest.rol = '';
+    this.obtenerEspecialidades();
   }
 
   onChangeValues() {
@@ -39,11 +44,11 @@ export class RegisterComponent
       this.userRequest.password != null &&
       this.userRequest.rol?.trim() != '' &&
       this.userRequest.rol != null
-
     );
   }
 
   registerUser() {
+
     this.authService.register(this.userRequest).subscribe((res) => {
       if (res.code == '400') {
         Swal.fire({
@@ -80,5 +85,30 @@ export class RegisterComponent
         this.router.navigate(['/home']);
       }
     });
+  }
+
+  async obtenerEspecialidades() {
+    this.listadOp = [];
+    this.docService.getAllspeciality().subscribe((res) => {
+      if (res.code == '400') {
+        Swal.fire({
+          title: 'Error!',
+          text: res?.message,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
+        console.error(res);
+      } else {
+        this.listadoEspecialidades = res;
+        this.listadoEspecialidades.map((val) => {
+          const data: Opcion = { code: val.id, texto: val.nombre };
+          this.listadOp.push(data);
+        });
+      }
+    });
+  }
+
+  onChangeValue(val: Opcion) {
+    this.userRequest.specialty = val.texto;
   }
 }

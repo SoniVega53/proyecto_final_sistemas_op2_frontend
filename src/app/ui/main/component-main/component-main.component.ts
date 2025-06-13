@@ -8,6 +8,7 @@ import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { EncryptionService } from '../../../entity/EncryptionService';
 import { PrescriptionApiServiceService } from '../../../service/prescription-api-service.service';
 import { DoctorApiServiceService } from '../../../service/doctor-api-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-component-main',
@@ -53,15 +54,6 @@ export class ComponentMainComponent {
     return data;
   }
 
-  obtenerTextoSeleccionado(codeEditor: CodemirrorComponent): string {
-    if (codeEditor.codeMirror) {
-      console.log(codeEditor.codeMirror.getSelection());
-      const texto = codeEditor.codeMirror?.getSelection();
-      return texto && texto.length > 0 ? texto : '';
-    }
-    return '';
-  }
-
   isValidUserAdmin(): boolean {
     let rol: String = this.getDataUser().rol?.toString();
     return rol.toUpperCase() === 'ADMIN';
@@ -76,4 +68,28 @@ export class ComponentMainComponent {
     let rol: String = this.getDataUser().rol?.toString();
     return rol.toUpperCase() === 'USER';
   }
+
+  onClickIdComponent(id:any) {
+    const modalElement = document.getElementById(id);
+    if (modalElement) {
+      modalElement.click();
+    }
+  }
+
+
+  messageEliminar(callback: () => void) {
+      Swal.fire({
+        title: 'Estas Seguro?',
+        text: '¡No podrás revertir esto!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'si, eliminar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          callback();
+        }
+      });
+    }
 }

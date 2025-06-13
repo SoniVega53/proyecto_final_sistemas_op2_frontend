@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { ComponentMainComponent } from '../main/component-main/component-main.component';
 import Swal from 'sweetalert2';
 
@@ -12,13 +12,19 @@ export class DoctorCitasComponentComponent
   implements OnInit
 {
   listadoCitas: any[] = [];
+  @Input() id_doc: any = '';
+  @Input() email: any = '';
 
   ngOnInit(): void {
+    if (!this.id_doc) {
+      this.id_doc = this.doctor_id;
+    }
     this.obtenerCitas();
   }
 
   obtenerCitas() {
-    this.appoService.getAllAppointmentsDoc(this.doctor_id).subscribe((res) => {
+    if (!this.id_doc) return;
+    this.appoService.getAllAppointmentsDoc(this.id_doc).subscribe((res) => {
       if (res.code == '400') {
         Swal.fire({
           title: 'Error!',
@@ -34,24 +40,26 @@ export class DoctorCitasComponentComponent
   }
 
   eliminarCita(id: any) {
-    this.appoService.deleteAppointment(id).subscribe((res) => {
-      if (res.code == '400') {
-        Swal.fire({
-          title: 'Error!',
-          text: res?.message,
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-        console.error(res);
-      } else {
-        Swal.fire({
-          title: 'Success!',
-          text: res?.message,
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
-        this.obtenerCitas();
-      }
+    this.messageEliminar(() => {
+      this.appoService.deleteAppointment(id).subscribe((res) => {
+        if (res.code == '400') {
+          Swal.fire({
+            title: 'Error!',
+            text: res?.message,
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
+          console.error(res);
+        } else {
+          Swal.fire({
+            title: 'Success!',
+            text: res?.message,
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+          this.obtenerCitas();
+        }
+      });
     });
   }
 

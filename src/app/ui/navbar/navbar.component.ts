@@ -14,4 +14,6 @@ export class NavbarComponent extends ComponentMainComponent {
   logout() {
     this.authService.logout();
   }
+
+
 }

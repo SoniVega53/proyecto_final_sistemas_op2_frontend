@@ -13,7 +13,7 @@ export class VerRecetaComponent
 {
   @Input() isDoctor = false;
 
-  textButonAgregar = 'Aceptar'
+  textButonAgregar = 'Aceptar';
 
   recetaRequest: any = {
     id: '',
@@ -26,6 +26,9 @@ export class VerRecetaComponent
   listadoRecetas: any[] = [];
 
   ngOnInit(): void {
+    if (!this.isDoctor) {
+      this.isDoctor = this.rol_user === 'ADMIN';
+    }
     this.route.queryParams.subscribe((params) => {
       this.dataCita = JSON.parse(params['data']);
       this.recetaRequest.appointmentId = this.dataCita.id;

@@ -40,8 +40,8 @@
     </ul>
     <br />
 
-    <div class="recetas">
-      <h2 *ngIf="listadoRecetas.length > 0">Listado Recetas</h2>
+    <div class="recetas" *ngIf="listadoRecetas.length > 0">
+      <h2 >Listado Recetas</h2>
       <ul class="list-group" *ngFor="let item of listadoRecetas">
         <li class="list-group-item">
           <span class="span-title">MEDICACION:</span> {{ item.medication }}

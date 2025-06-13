@@ -12,7 +12,10 @@ import { AuthGuardRolService } from './auth/auth-guard-rol.service';
 import { ErrorPageComponent } from './ui/error-page/error-page.component';
 import { CrearCitaComponent } from './ui/paciente/crear-cita/crear-cita.component';
 import { VerRecetaComponent } from './ui/paciente/ver-receta/ver-receta.component';
-import { ListadoUsuariosComponent } from './ui/listado-usuarios/listado-usuarios.component';
+import { ListadoUsuariosComponent } from './ui/admin/listado-usuarios/listado-usuarios.component';
+import { CrearEspecialidadPageComponent } from './ui/admin/crear-especialidad-page/crear-especialidad-page.component';
+import { UserAdministratePageComponent } from './ui/admin/user-administrate-page/user-administrate-page.component';
+import { UserUpdatePageComponent } from './ui/admin/user-update-page/user-update-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,7 +35,7 @@ const routes: Routes = [
   {
     path: 'doctor',
     canActivate: [AuthGuardRolService],
-    data: { roles: ['DOCTOR'] },
+    data: { roles: ['DOCTOR','ADMIN'] },
     children: [
       { path: 'citas', component: DoctorCitasComponentComponent },
       { path: 'pacientes', component: DoctorPacientesComponentComponent },
@@ -41,7 +44,7 @@ const routes: Routes = [
   {
     path: 'paciente',
     canActivate: [AuthGuardRolService],
-    data: { roles: ['USER'] },
+    data: { roles: ['USER','ADMIN'] },
     children: [
       { path: 'citas', component: CrearCitaComponent },
       { path: 'recetas', component: VerRecetaComponent },
@@ -53,6 +56,9 @@ const routes: Routes = [
     data: { roles: ['ADMIN'] },
     children: [
       { path: 'listado-usaurios', component: ListadoUsuariosComponent },
+      { path: 'especialidad', component: CrearEspecialidadPageComponent },
+      { path: 'user-administrate', component: UserAdministratePageComponent },
+      { path: 'user-editar', component: UserUpdatePageComponent },
     ],
   },
 

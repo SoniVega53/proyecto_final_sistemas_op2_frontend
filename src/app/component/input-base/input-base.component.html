@@ -1,0 +1,12 @@
+<div class="mb-2 text-start">
+  <label>{{lbTitle}}</label>
+  <input
+    [type]="type"
+    class="form-control"
+    [placeholder]="placeholder"
+    [name]="name"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onTouched()"
+  />
+</div>

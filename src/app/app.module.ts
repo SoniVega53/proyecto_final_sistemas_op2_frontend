@@ -18,7 +18,16 @@ import { DoctorPacientesComponentComponent } from './ui/doctor-pacientes-compone
 import { ErrorPageComponent } from './ui/error-page/error-page.component';
 import { CrearCitaComponent } from './ui/paciente/crear-cita/crear-cita.component';
 import { VerRecetaComponent } from './ui/paciente/ver-receta/ver-receta.component';
-import { ListadoUsuariosComponent } from './ui/listado-usuarios/listado-usuarios.component';
+import { ListadoUsuariosComponent } from './ui/admin/listado-usuarios/listado-usuarios.component';
+import { InputSelectorComponent } from './component/input-selector/input-selector.component';
+import { CrearEspecialidadPageComponent } from './ui/admin/crear-especialidad-page/crear-especialidad-page.component';
+import { TableBaseComponent } from './component/table-base/table-base.component';
+import { InputBaseComponent } from './component/input-base/input-base.component';
+import { ItemNavbarComponent } from './component/item-navbar/item-navbar.component';
+import { ContenidoMdComponent } from './component/contenido-md/contenido-md.component';
+import { ModalCreacionComponent } from './component/modal-creacion/modal-creacion.component';
+import { UserAdministratePageComponent } from './ui/admin/user-administrate-page/user-administrate-page.component';
+import { UserUpdatePageComponent } from './ui/admin/user-update-page/user-update-page.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +44,16 @@ import { ListadoUsuariosComponent } from './ui/listado-usuarios/listado-usuarios
     ErrorPageComponent,
     CrearCitaComponent,
     VerRecetaComponent,
-    ListadoUsuariosComponent
+    ListadoUsuariosComponent,
+    InputSelectorComponent,
+    CrearEspecialidadPageComponent,
+    TableBaseComponent,
+    InputBaseComponent,
+    ItemNavbarComponent,
+    ContenidoMdComponent,
+    ModalCreacionComponent,
+    UserAdministratePageComponent,
+    UserUpdatePageComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule,CodemirrorModule],
   providers: [
