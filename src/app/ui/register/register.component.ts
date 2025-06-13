@@ -48,7 +48,6 @@ export class RegisterComponent
   }
 
   registerUser() {
-    console.log(this.userRequest);
 
     this.authService.register(this.userRequest).subscribe((res) => {
       if (res.code == '400') {
@@ -100,7 +99,6 @@ export class RegisterComponent
         });
         console.error(res);
       } else {
-        console.log(res);
         this.listadoEspecialidades = res;
         this.listadoEspecialidades.map((val) => {
           const data: Opcion = { code: val.id, texto: val.nombre };
@@ -111,7 +109,6 @@ export class RegisterComponent
   }
 
   onChangeValue(val: Opcion) {
-    console.log(val);
     this.userRequest.specialty = val.texto;
   }
 }

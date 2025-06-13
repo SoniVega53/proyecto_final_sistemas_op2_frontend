@@ -48,7 +48,6 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
         this.userRequest.id_paciente = this.getDataUser().paciente.id;
       }
     } else {
-      console.log('COMPONENTE: ' + this.userRequestInput);
       this.userRequest = this.userRequestInput;
     }
     this.obtenerEspecialidades();
@@ -189,7 +188,6 @@ export class PerfilComponent extends ComponentMainComponent implements OnInit {
         });
         console.error(res);
       } else {
-        console.log(res);
         this.listadoEspecialidades = res;
         this.listadoEspecialidades.map((val) => {
           const data: Opcion = { code: val.id, texto: val.nombre };

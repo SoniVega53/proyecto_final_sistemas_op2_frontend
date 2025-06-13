@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ComponentMainComponent } from '../../main/component-main/component-main.component';
 import Swal from 'sweetalert2';
+import { Opcion } from '../../../entity/Opcion';
 
 @Component({
   selector: 'app-crear-cita',
@@ -16,17 +17,19 @@ export class CrearCitaComponent
   @Input() email: any = '';
 
   listadoDoctores: any[] = [];
+  listadoDoctoresFilter: any[] = [];
   listadoEspecialidades: any[] = [];
+  listadOp: Opcion[] = [];
   listadoCitas: any[] = [];
   citaRequest = '';
   selectDoctor = '';
   selectorEsp = '';
+  isVisibleDoc = false;
 
   ngOnInit(): void {
     if (!this.id_pac) {
       this.id_pac = this.paciente_id;
     }
-
 
     this.obtenerDoctores();
     this.obtenerEspecialidades();
@@ -44,13 +47,13 @@ export class CrearCitaComponent
         });
         console.error(res);
       } else {
-
         this.listadoDoctores = res;
       }
     });
   }
 
   async obtenerEspecialidades() {
+    this.listadOp = [];
     this.docService.getAllspeciality().subscribe((res) => {
       if (res.code == '400') {
         Swal.fire({
@@ -62,27 +65,29 @@ export class CrearCitaComponent
         console.error(res);
       } else {
         this.listadoEspecialidades = res;
+        this.listadoEspecialidades.map((val) => {
+          const data: Opcion = { code: val.id, texto: val.nombre };
+          this.listadOp.push(data);
+        });
       }
     });
   }
 
   obtenerCitas() {
     if (!this.id_pac) return;
-    this.appoService
-      .getAllAppointmentsPac(this.id_pac)
-      .subscribe((res) => {
-        if (res.code == '400') {
-          Swal.fire({
-            title: 'Error!',
-            text: res?.message,
-            icon: 'error',
-            confirmButtonText: 'Aceptar',
-          });
-          console.error(res);
-        } else {
-          this.listadoCitas = res;
-        }
-      });
+    this.appoService.getAllAppointmentsPac(this.id_pac).subscribe((res) => {
+      if (res.code == '400') {
+        Swal.fire({
+          title: 'Error!',
+          text: res?.message,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
+        console.error(res);
+      } else {
+        this.listadoCitas = res;
+      }
+    });
   }
 
   crearCitaComponent(request: any) {
@@ -143,12 +148,37 @@ export class CrearCitaComponent
     const request = {
       date: this.citaRequest,
       doctorId: this.selectDoctor,
-      patientId: this.paciente_id,
+      patientId: this.id_pac,
     };
-    console.log(request);
     if (!request.date || !request.doctorId) return;
     this.crearCitaComponent(request);
   }
 
-  onChangeValue(event: any) {}
+  onChangeValue(val: Opcion) {
+    this.selectorEsp = val.texto;
+    this.filtraDo()
+  }
+
+  onInputChange(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.filtraDo();
+  }
+
+  filtraDo() {
+    if (this.esFechaValida(this.citaRequest)) {
+      this.isVisibleDoc = true;
+
+      this.listadoDoctoresFilter = this.listadoDoctores.filter(
+        (res) => res.specialty == this.selectorEsp
+      );
+    }
+  }
+
+  esFechaValida(fecha: string): boolean {
+    const date = new Date(fecha);
+    const esValida =
+      !isNaN(date.getTime()) && fecha === date.toISOString().split('T')[0];
+
+    return esValida;
+  }
 }

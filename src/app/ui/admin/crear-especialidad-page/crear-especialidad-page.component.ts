@@ -47,10 +47,9 @@ export class CrearEspecialidadPageComponent
         });
         console.error(res);
       } else {
-        console.log(res);
         this.listadoEspecialidades = res;
         this.listadoEspecialidades.map((val) => {
-          const data = new TablaEntity(val.id, false, [
+          const data = new TablaEntity(val.id,'0', false, [
             val.nombre,
             val.descripcion,
           ]);
@@ -87,7 +86,6 @@ export class CrearEspecialidadPageComponent
   }
 
   onEliminar(item: any) {
-    console.log(item);
     this.docService.eliminarEspecialidad(item.id).subscribe((res) => {
       if (res.code == '400') {
         Swal.fire({

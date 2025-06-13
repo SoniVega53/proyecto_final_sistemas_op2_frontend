@@ -90,7 +90,6 @@ export class ListadoUsuariosComponent
           confirmButtonText: 'Aceptar',
         });
       } else {
-        console.log(res);
         const list: Array<any> = [
           ...(res?.filter((val: { rol: string }) => val.rol === 'DOCTOR') ||
             []),
@@ -104,7 +103,7 @@ export class ListadoUsuariosComponent
         this.usersList.map((val) => {
           const id = val.rol === 'DOCTOR' ? val.doctor.id : val.paciente.id
 
-          const data = new TablaEntity(id, false, [
+          const data = new TablaEntity(val.id, id,false, [
             val.username,
             val.email,
             val.rol,
@@ -127,7 +126,6 @@ export class ListadoUsuariosComponent
         });
         console.error(res);
       } else {
-        console.log(res);
         this.listadoEspecialidades = res;
         this.listadoEspecialidades.map((val) => {
           this.listadoEspecialidadesOP.push({
@@ -140,8 +138,6 @@ export class ListadoUsuariosComponent
   }
 
   onClickItem(event: any) {
-    console.log(event);
-    const da = { id: event?.id };
     this.router.navigate(['/admin/user-administrate'], {
       queryParams: {
         data: JSON.stringify(event),

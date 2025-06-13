@@ -54,15 +54,6 @@ export class ComponentMainComponent {
     return data;
   }
 
-  obtenerTextoSeleccionado(codeEditor: CodemirrorComponent): string {
-    if (codeEditor.codeMirror) {
-      console.log(codeEditor.codeMirror.getSelection());
-      const texto = codeEditor.codeMirror?.getSelection();
-      return texto && texto.length > 0 ? texto : '';
-    }
-    return '';
-  }
-
   isValidUserAdmin(): boolean {
     let rol: String = this.getDataUser().rol?.toString();
     return rol.toUpperCase() === 'ADMIN';

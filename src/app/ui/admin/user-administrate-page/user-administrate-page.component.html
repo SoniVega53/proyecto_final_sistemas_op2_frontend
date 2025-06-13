@@ -1,11 +1,11 @@
 <app-crear-cita
   [email]="data.value[1]"
-  [id_pac]="data?.id"
+  [id_pac]="data?.id_perfil"
   *ngIf="data.value[2] === 'USER'"
 ></app-crear-cita>
 <app-doctor-citas-component
   [email]="data.value[1]"
   *ngIf="data.value[2] === 'DOCTOR'"
-  [id_doc]="data?.id"
+  [id_doc]="data?.id_perfil"
 ></app-doctor-citas-component>
 

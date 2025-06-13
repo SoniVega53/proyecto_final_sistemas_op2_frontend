@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, input, Output } from '@angular/core';
 import { Opcion } from '../../entity/Opcion';
+import { text } from 'stream/consumers';
 
 @Component({
   selector: 'input-selector',
@@ -17,7 +18,10 @@ export class InputSelectorComponent {
       const data = this.listado.find((val) => val.code == this.seleccionado);
       if (data) {
          this.onChangeValue.emit(data);
+      }else{
+        this.onChangeValue.emit({code:'',text:''});
       }
+
     }
   }
 }

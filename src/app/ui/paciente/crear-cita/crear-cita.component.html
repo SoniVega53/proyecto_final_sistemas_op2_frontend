@@ -2,41 +2,46 @@
   <br />
   <div class="ajustCenter" *ngIf="isCreate">
     <div style="width: 60%">
-
-      <!-- <input-selector
-        [listado]="listadoEspecialidades"
-        placeholder="Seleccione Especialidad"
-        (onChangeValue)="onChangeValue($event)"
-      ></input-selector> -->
-
+      <h2 class="text-center">AGENDAR CITA</h2>
       <div class="mb-2 text-start">
+        <label>Seleccione la Especialidad que necesite:</label>
+        <input-selector
+          [listado]="listadOp"
+          [placeholder]="'Seleccione Especialidad'"
+          (onChangeValue)="onChangeValue($event)"
+        ></input-selector>
+      </div>
+      <div class="mb-2 text-start" *ngIf="this.selectorEsp">
         <label>Fecha De cita:</label>
         <input
           type="text"
           class="form-control"
           placeholder="2025-05-28"
           [(ngModel)]="citaRequest"
+          (input)="onInputChange($event)"
           name="date"
         />
       </div>
 
-      <div class="mb-2 text-start">
+      <div class="mb-2 text-start" *ngIf="isVisibleDoc">
         <div>
           <select
-            *ngIf="listadoDoctores.length > 0"
+            *ngIf="listadoDoctoresFilter.length > 0"
             [(ngModel)]="selectDoctor"
             class="form-select"
             aria-label="Selecciona un doctor"
           >
             <option value="">-- Selecciona un doctor --</option>
-            <option *ngFor="let item of listadoDoctores" [value]="item.id">
-              {{ item.name }} {{ item.lastname }} - {{ item.specialty }}
+            <option *ngFor="let item of listadoDoctoresFilter" [value]="item.id">
+              {{ item.name }} {{ item.lastname }}
             </option>
           </select>
         </div>
+
+        <p *ngIf="listadoDoctoresFilter.length <= 0 && this.selectorEsp" style="color: brown;">Lo sentimos, no se encontró ningún doctor disponible en este momento.</p>
       </div>
 
-      <div class="d-grid gap-2 col-6 mx-auto mb-4">
+      <div class="d-grid gap-2 col-6 mx-auto mb-4" *ngIf="selectDoctor && listadoDoctoresFilter.length > 0">
         <button
           type="button"
           class="btn btn-primary mt-3"
@@ -45,11 +50,12 @@
           Aceptar
         </button>
       </div>
+      <br>
     </div>
   </div>
 
   <h2 class="text-center">CITAS AGENDADAS</h2>
-  <h4 class="text-center" *ngIf="email">DE: {{email}}</h4>
+  <h4 class="text-center" *ngIf="email">DE: {{ email }}</h4>
   <br />
   <table class="table" *ngIf="listadoCitas.length > 0">
     <thead>

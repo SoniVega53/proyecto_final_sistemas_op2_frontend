@@ -18,7 +18,6 @@ export class UserUpdatePageComponent
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.paramsData = JSON.parse(params['data']);
-      console.log(this.paramsData);
     });
 
     this.obtenerDataUser();
@@ -37,7 +36,6 @@ export class UserUpdatePageComponent
           confirmButtonText: 'Aceptar',
         });
       } else {
-        console.log( res?.entity);
         this.pintarData(res?.entity);
       }
     });
