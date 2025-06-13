@@ -1,5 +1,6 @@
 <div class="container-login">
   <div class="card">
+    <h4 class="text-center" *ngIf="!defaultPerfil">ACTUALIZAR USUARIO</h4>
     <div class="card-img-top svg-images">
       <div style="width: 9rem; height: 9rem">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -13,7 +14,7 @@
 
     <div class="card-body">
       <h5 class="card-title text-center" style="text-transform: uppercase">
-        {{ username }}
+        {{ userRequest.username }}
       </h5>
       <div class="container text-center inputs-container">
         <div>
@@ -85,6 +86,7 @@
         <div>
           <br />
           <a
+            *ngIf="defaultPerfil"
             class="card-link"
             data-bs-toggle="modal"
             data-bs-target="#updateChangePassword"
@@ -164,7 +166,6 @@
       </div>
       <div class="modal-body">
         <div class="col">
-
           <div class="mb-2 text-start">
             <label>Nombre</label>
             <input
@@ -200,13 +201,12 @@
 
           <div class="mb-3 text-start" *ngIf="userRequest.rol === 'DOCTOR'">
             <label>Especialidad</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Ej: Pediatría"
-              [(ngModel)]="userRequest.specialty"
-              name="specialty"
-            />
+            <input-selector
+              [listado]="listadOp"
+              [seleccionado]="seleccionado"
+              [placeholder]="'Seleccione Especialidad'"
+              (onChangeValue)="onChangeValue($event)"
+            ></input-selector>
           </div>
 
           <div class="mb-2 text-start" *ngIf="userRequest.rol === 'USER'">
@@ -226,7 +226,14 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="actualizarUsuario()">Actualizar</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="actualizarUsuario()"
+        >
+          Actualizar
+        </button>
       </div>
     </div>
   </div>

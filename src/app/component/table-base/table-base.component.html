@@ -1,0 +1,42 @@
+<table class="table" *ngIf="listadoData.length > 0">
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">#</th>
+      <th scope="col" *ngFor="let item of listadoHeader">{{ item }}</th>
+      <th scope="col" style="text-align: center" *ngIf="opciones">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of listadoData; let i = index" >
+      <th scope="row" (click)="clickItem(item)">{{ i + 1 }}</th>
+
+      <td *ngFor="let cell of item.value" (click)="clickItem(item)">{{ cell }}</td>
+
+      <td class="d-grid gap-2 d-md-flex justify-content-md-end" *ngIf="opciones">
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          style="margin-right: 4px; width: 90px"
+          [disabled]="item?.enable"
+          (click)="eliminarUser(item)"
+        >
+          Eliminar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          style="width: 90px"
+          [disabled]="item?.enable"
+          (click)="editarUsuario(item)"
+        >
+          Editar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-is-empty
+  *ngIf="listadoData.length <= 0"
+  [descripcion]="descripcionEmpty"
+></app-is-empty>

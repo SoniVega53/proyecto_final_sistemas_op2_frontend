@@ -19,6 +19,7 @@
 <body>
   <app-crear-cita *ngIf="rol_user === 'USER'" [isCreate]="false"></app-crear-cita>
   <app-doctor-citas-component *ngIf="rol_user === 'DOCTOR'"></app-doctor-citas-component>
+  <listado-usuarios *ngIf="rol_user === 'ADMIN'" [isTitle]="false" [opciones]="false"></listado-usuarios>
 </body>
 
 

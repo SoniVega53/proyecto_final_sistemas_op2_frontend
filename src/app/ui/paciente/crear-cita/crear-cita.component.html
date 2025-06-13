@@ -1,7 +1,14 @@
 <div class="container">
   <br />
   <div class="ajustCenter" *ngIf="isCreate">
-    <div  style="width: 60%">
+    <div style="width: 60%">
+
+      <!-- <input-selector
+        [listado]="listadoEspecialidades"
+        placeholder="Seleccione Especialidad"
+        (onChangeValue)="onChangeValue($event)"
+      ></input-selector> -->
+
       <div class="mb-2 text-start">
         <label>Fecha De cita:</label>
         <input
@@ -42,6 +49,7 @@
   </div>
 
   <h2 class="text-center">CITAS AGENDADAS</h2>
+  <h4 class="text-center" *ngIf="email">DE: {{email}}</h4>
   <br />
   <table class="table" *ngIf="listadoCitas.length > 0">
     <thead>
@@ -79,5 +87,8 @@
     </tbody>
   </table>
 
-  <app-is-empty *ngIf="listadoCitas.length <= 0" descripcion="No tienes Citas Agendadas"></app-is-empty>
+  <app-is-empty
+    *ngIf="listadoCitas.length <= 0"
+    descripcion="No tienes Citas Agendadas"
+  ></app-is-empty>
 </div>

@@ -12,18 +12,28 @@ export class CrearCitaComponent
   implements OnInit
 {
   @Input() isCreate = true;
+  @Input() id_pac: any = '';
+  @Input() email: any = '';
 
   listadoDoctores: any[] = [];
+  listadoEspecialidades: any[] = [];
   listadoCitas: any[] = [];
   citaRequest = '';
   selectDoctor = '';
+  selectorEsp = '';
 
   ngOnInit(): void {
+    if (!this.id_pac) {
+      this.id_pac = this.paciente_id;
+    }
+
+
     this.obtenerDoctores();
+    this.obtenerEspecialidades();
     this.obtenerCitas();
   }
 
-  obtenerDoctores() {
+  async obtenerDoctores() {
     this.docService.getAllDoctors().subscribe((res) => {
       if (res.code == '400') {
         Swal.fire({
@@ -34,14 +44,32 @@ export class CrearCitaComponent
         });
         console.error(res);
       } else {
+
         this.listadoDoctores = res;
       }
     });
   }
 
+  async obtenerEspecialidades() {
+    this.docService.getAllspeciality().subscribe((res) => {
+      if (res.code == '400') {
+        Swal.fire({
+          title: 'Error!',
+          text: res?.message,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
+        console.error(res);
+      } else {
+        this.listadoEspecialidades = res;
+      }
+    });
+  }
+
   obtenerCitas() {
+    if (!this.id_pac) return;
     this.appoService
-      .getAllAppointmentsPac(this.paciente_id)
+      .getAllAppointmentsPac(this.id_pac)
       .subscribe((res) => {
         if (res.code == '400') {
           Swal.fire({
@@ -121,4 +149,6 @@ export class CrearCitaComponent
     if (!request.date || !request.doctorId) return;
     this.crearCitaComponent(request);
   }
+
+  onChangeValue(event: any) {}
 }

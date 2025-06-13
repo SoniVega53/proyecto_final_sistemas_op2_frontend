@@ -97,13 +97,11 @@
                     *ngIf="userRequest.rol === 'DOCTOR'"
                   >
                     <label>Especialidad</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Ej: Pediatría"
-                      [(ngModel)]="userRequest.specialty"
-                      name="specialty"
-                    />
+                    <input-selector
+                      [listado]="listadOp"
+                      [placeholder]="'Seleccione Especialidad'"
+                      (onChangeValue)="onChangeValue($event)"
+                    ></input-selector>
                   </div>
 
                   <div

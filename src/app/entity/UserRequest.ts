@@ -6,6 +6,6 @@ export class UserRequest {
   password?: String;
   passwordChange?: String;
   rol?: String;
-  specialty?: String;
+  specialty?: string;
   phone?: String;
 }

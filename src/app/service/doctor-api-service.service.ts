@@ -21,4 +21,25 @@ export class DoctorApiServiceService extends AuthApiService {
   deleteDoctor(id: number): Observable<any> {
     return this.deleteService(`doctor/delete/${id}`);
   }
+
+  // ESPECIALIDAD
+  getAllspeciality(): Observable<any> {
+    return this.getService('specialties/see');
+  }
+
+  createEspecialidad(body: any): Observable<any> {
+    return this.post('specialties', body);
+  }
+
+  updateEspecialidad(body: any, id: any, isUpdate:boolean): Observable<any> {
+    if (id) {
+      return this.post(`specialties/update/${id}`, body);
+    } else {
+      return this.post('specialties', body);
+    }
+  }
+
+  eliminarEspecialidad(id: any): Observable<any> {
+    return this.deleteService(`specialties/eliminar/${id}`);
+  }
 }

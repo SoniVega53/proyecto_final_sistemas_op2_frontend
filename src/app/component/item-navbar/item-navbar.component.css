@@ -1,0 +1,19 @@
+.nav-link{
+    color: rgb(255, 255, 255);
+}
+
+.text-nav-title{
+    font-family: 'Lumanosimo', cursive;
+    margin: 0;
+    margin-left: 0.5rem;
+}
+
+
+.svg-nav-icon{
+    width: 25px;
+    height: 25px;
+}
+
+.nav-item{
+    cursor: pointer;
+}

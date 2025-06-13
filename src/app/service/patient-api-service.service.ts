@@ -3,7 +3,7 @@ import { BaseApiService } from './base-api.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PatientApiServiceService extends BaseApiService {
   getAllPatients(): Observable<any> {
@@ -20,5 +20,18 @@ export class PatientApiServiceService extends BaseApiService {
 
   deletePatient(id: number): Observable<any> {
     return this.deleteService(`admin/patient/delete/${id}`);
+  }
+
+  //HORARIOS
+  getAllHorarios(): Observable<any> {
+    return this.getService('datesdoctor/see');
+  }
+
+  createHorario(body: any): Observable<any> {
+    return this.post('datesdoctor', body);
+  }
+
+  getAllHorariosDoc(id_doc: any): Observable<any> {
+    return this.getService(`datesdoctor/see/doctor/${id_doc}`);
   }
 }
