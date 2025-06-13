@@ -10,8 +10,8 @@ import { catchError, Observable } from 'rxjs';
 export class BaseApiService {
   public userKey = 'usuario';
 
-  public urlService: string = 'http://localhost:9090/api/proyecto/';
-  //public urlService: string = 'http://34.44.243.186:9090/api/proyecto/';
+  //public urlService: string = 'http://localhost:9090/api/proyecto/';
+  public urlService: string = 'http://34.44.243.186:9090/api/proyecto/';
 
   constructor(
     public http: HttpClient,
